@@ -306,8 +306,10 @@ class Tools
      */
     public static function fatorVencimento($data)
     {
-        [$dia, $mes, $ano] = explode("/", $data);
-        return (abs((self::dateToDays("1997", "10", "07")) - (self::dateToDays($ano, $mes, $dia))));
+       [$dia, $mes, $ano] = explode("/", $data);
+        $fator = (abs((self::dateToDays("1997", "10", "07")) - (self::dateToDays($ano, $mes, $dia))));
+
+        return $fator > 9999 ? ($fator % 9999) + 1000 : $fator;
     }
 
     private static function dateToDays($year, $month, $day)
