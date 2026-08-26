@@ -309,7 +309,8 @@ class Tools
        [$dia, $mes, $ano] = explode("/", $data);
         $fator = (abs((self::dateToDays("1997", "10", "07")) - (self::dateToDays($ano, $mes, $dia))));
 
-        return $fator > 9999 ? ($fator % 9999) + 1000 : $fator;
+        // rollover FEBRABAN (22/02/2025): quando passa de 9999, subtrai 9000. O (%9999)+1000 dava +1.
+        return $fator > 9999 ? $fator - 9000 : $fator;
     }
 
     private static function dateToDays($year, $month, $day)
